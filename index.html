@@ -448,7 +448,7 @@
       clusters: ["Arts, A/V Technology & Communications", "Marketing", "Hospitality & Tourism", "Education & Training"],
       words: ["creative","expressive","imaginative","persuasive","observant","articulate","flexible","idea-driven"],
       programs: ["Communications","Marketing","Graphic Design","Journalism","Media Studies","Public Relations","English","Digital Media","Advertising"],
-      careers: ["Media","Design","Marketing","Writing","Public relations","Content creation","Communications","Community outreach","Science communication","UX content","Interpreter","Brand strategy","Museum work","Instructional design"],
+      careers: ["Media","Design","Marketing","Writing","Public relations","Content creation","Communications","Community outreach","UX content","Interpreter","Brand strategy","Museum work","Instructional design"],
       why: "Your answers suggest that ideas and expression matter to you. You may enjoy work where you create messages, stories, visuals, lessons, or campaigns that help people understand, feel, learn, or take action.",
       pdf: "downloads/creating-communicating-career-starter-snapshot.pdf"
     },
@@ -992,15 +992,15 @@
     var primary = BUCKETS[r.results[0].key];
     var node = el(
       '<div>'+
-        '<h1>Take your results with you</h1>'+
-        '<p class="lead">Save a one-page snapshot of your results to look back on or share.</p>'+
+        '<h1>Keep your career clues handy</h1>'+
+        '<p class="lead">Save a quick summary of your results so you can look back, share it, or use it when you’re exploring what’s next.</p>'+
         '<div class="note-card">'+
-          '<p><strong>'+ possessive() +' Career Starter Snapshot</strong></p>'+
-          '<p style="margin-bottom:0;">Includes your career direction, formal career cluster matches, words that describe your strengths, and programs and career areas to explore.</p>'+
+          '<p><strong>'+ possessive() +' Career Clues Snapshot</strong></p>'+
+          '<p style="margin-bottom:0;">Your snapshot includes your top career clusters, words that describe your strengths, majors to explore, and career ideas you may want to check out.</p>'+
         '</div>'+
         '<div class="stack">'+
-          '<a class="btn btn-primary" href="'+ primary.pdf +'" id="downloadLink" download>Download my Career Clues Snapshot</a>'+
-          '<p class="helper center">Save this one-page summary or bring it to a conversation with a counselor, teacher, parent, or mentor.</p>'+
+          '<a class="btn btn-primary" href="'+ primary.pdf +'" id="downloadLink" download>Download my snapshot</a>'+
+          '<p class="helper center">Bring it to a conversation with a counselor, teacher, parent, mentor, or someone else you trust.</p>'+
           '<button class="btn btn-secondary" id="continueBtn" type="button">Continue</button>'+
         '</div>'+
       '</div>'

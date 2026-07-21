@@ -343,6 +343,18 @@
     padding:6px 12px;
     font-size:0.92rem;
   }
+  .chip-cluster{
+    background:#e6f3f2;
+    border:1px solid #bfe7e1;
+    color:var(--teal);
+    font-weight:600;
+  }
+  .chip-word{
+    background:#fdf0dc;
+    border:1px solid #f6d9a8;
+    color:#8a5800;
+    font-weight:700;
+  }
   ul.plain{ margin:0; padding-left:1.2em; color:var(--text); }
   ul.plain li{ margin-bottom:4px; }
 
@@ -608,20 +620,36 @@
     return t.content.firstElementChild;
   }
 
+  // Sync in-app navigation with the browser's History API so the device's
+  // native back gesture / browser back button steps through quiz screens
+  // instead of leaving the page entirely.
+  var supportsHistory = !!(window.history && window.history.pushState);
+
   function go(screenId, opts){
     opts = opts || {};
     if(opts.push !== false){
       state.history.push(screenId);
+      if(supportsHistory){
+        history.pushState({ ccScreen: screenId, ccDepth: state.history.length }, "");
+      }
     }
     state.current = screenId;
     render();
   }
 
-  function back(){
+  function popInternal(){
     if(state.history.length > 1){
       state.history.pop();
       state.current = state.history[state.history.length - 1];
       render(true);
+    }
+  }
+
+  function back(){
+    if(supportsHistory && state.history.length > 1){
+      history.back(); // triggers the popstate listener below, which calls popInternal()
+    } else {
+      popInternal();
     }
   }
 
@@ -681,6 +709,11 @@
   var brandSub = document.getElementById("brandSub");
 
   backBtn.addEventListener("click", back);
+
+  // Handles the device/browser back gesture or back button.
+  window.addEventListener("popstate", function(){
+    popInternal();
+  });
 
   function render(isBack){
     var s = state.current;
@@ -905,7 +938,7 @@
       return '<span class="result-pill"><span class="dot" aria-hidden="true"></span>'+ BUCKETS[x.key].label +'</span>';
     }).join("");
 
-    var clusterHtml = clusterPills.map(function(c){ return '<li class="chip">'+ c +'</li>'; }).join("");
+    var clusterHtml = clusterPills.map(function(c){ return '<li class="chip chip-cluster">'+ c +'</li>'; }).join("");
 
     var node = el(
       '<div>'+
@@ -938,6 +971,9 @@
     state.answers = new Array(QUESTIONS.length).fill(null);
     state.history = ["landing"];
     state.current = "landing";
+    if(supportsHistory){
+      history.replaceState({ ccScreen: "landing", ccDepth: 1 }, "");
+    }
     // keep name so they don't have to retype, but reset to landing per flow
     render();
   }
@@ -956,7 +992,7 @@
           '</div>'+
           '<div class="section">'+
             '<h3>Words you can use to describe yourself</h3>'+
-            '<ul class="chip-list">'+ b.words.map(function(w){return '<li class="chip">'+w+'</li>';}).join("") +'</ul>'+
+            '<ul class="chip-list">'+ b.words.map(function(w){return '<li class="chip chip-word">'+w+'</li>';}).join("") +'</ul>'+
           '</div>'+
           '<div class="section">'+
             '<h3>Majors to explore</h3>'+
@@ -968,7 +1004,7 @@
           '</div>'+
           '<div class="section">'+
             '<h3>Formal career cluster matches</h3>'+
-            '<ul class="chip-list">'+ b.clusters.map(function(c){return '<li class="chip">'+c+'</li>';}).join("") +'</ul>'+
+            '<ul class="chip-list">'+ b.clusters.map(function(c){return '<li class="chip chip-cluster">'+c+'</li>';}).join("") +'</ul>'+
           '</div>'+
         '</div>';
     }).join('<hr style="border:none;border-top:1px solid var(--border);margin:24px 0;">');
@@ -989,18 +1025,30 @@
 
   SCREENS.download = function(){
     var r = state._results || computeResults();
-    var primary = BUCKETS[r.results[0].key];
+    var multi = r.results.length > 1;
+
+    var cardsHtml = r.results.map(function(x, idx){
+      var b = BUCKETS[x.key];
+      var btnClass = idx === 0 ? "btn-primary" : "btn-secondary";
+      return ''+
+        '<div class="note-card">'+
+          '<p><strong>'+ b.label +' snapshot</strong></p>'+
+          '<p style="margin-bottom:12px;">Includes career clusters, words that describe your strengths, majors to explore, and career ideas you may want to check out.</p>'+
+          '<a class="btn '+ btnClass +'" href="'+ b.pdf +'" download>Download '+ b.label +' snapshot</a>'+
+        '</div>';
+    }).join("");
+
+    var lead = multi
+      ? "Save a quick summary of each direction so you can look back, share them, or use them when you’re exploring what’s next."
+      : "Save a quick summary of your results so you can look back, share it, or use it when you’re exploring what’s next.";
+
     var node = el(
       '<div>'+
         '<h1>Keep your career clues handy</h1>'+
-        '<p class="lead">Save a quick summary of your results so you can look back, share it, or use it when you’re exploring what’s next.</p>'+
-        '<div class="note-card">'+
-          '<p><strong>'+ possessive() +' Career Clues Snapshot</strong></p>'+
-          '<p style="margin-bottom:0;">Your snapshot includes your top career clusters, words that describe your strengths, majors to explore, and career ideas you may want to check out.</p>'+
-        '</div>'+
+        '<p class="lead">'+ lead +'</p>'+
+        cardsHtml +
         '<div class="stack">'+
-          '<a class="btn btn-primary" href="'+ primary.pdf +'" id="downloadLink" download>Download my snapshot</a>'+
-          '<p class="helper center">Bring it to a conversation with a counselor, teacher, parent, mentor, or someone else you trust.</p>'+
+          '<p class="helper center">Bring '+ (multi ? "these" : "it") +' to a conversation with a counselor, teacher, parent, mentor, or someone else you trust.</p>'+
           '<button class="btn btn-secondary" id="continueBtn" type="button">Continue</button>'+
         '</div>'+
       '</div>'
@@ -1042,6 +1090,9 @@
   };
 
   // ---------- INIT ----------
+  if(supportsHistory){
+    history.replaceState({ ccScreen: "landing", ccDepth: 1 }, "");
+  }
   render();
 })();
 </script>

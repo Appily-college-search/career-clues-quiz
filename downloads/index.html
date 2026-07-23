@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Clues | Appily</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&family=Roboto+Slab:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Appily brand palette (sampled from appily.com) */
+    --navy:#031d32;          /* primary text / brand */
+    --teal:#037b79;          /* links, secondary accent */
+    --orange:#ed8b00;        /* primary CTA */
+    --orange-dark:#c97600;
+
+    --primary:#031d32;
+    --primary-dark:#031d32;
+    --accent:#037b79;
+    --cta:#ed8b00;
+    --cta-text:#031d32;
+    --warm:#ed8b00;
+    --bg:#f5f8fb;
+    --card:#ffffff;
+    --text:#031d32;
+    --text-muted:#4d5b6c;
+    --border:#d6dee7;
+    --focus:#037b79;
+    --radius:16px;
+    --max-width:480px;
+
+    --font-heading:"Roboto Slab","Museo Slab",Georgia,serif;
+    --font-body:"Poppins","Museo Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.5;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  #app{
+    max-width:var(--max-width);
+    margin:0 auto;
+    min-height:100vh;
+    background:var(--card);
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 0 24px rgba(20,40,70,0.06);
+  }
+  .topbar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 20px;
+    border-bottom:1px solid var(--border);
+    min-height:30px;
+  }
+  .brand{
+    font-family:var(--font-heading);
+    font-weight:800;
+    font-size:1.1rem;
+    color:var(--navy);
+    letter-spacing:0.02em;
+  }
+  .brand-sub{
+    font-size:0.8rem;
+    color:var(--text-muted);
+    margin-left:auto;
+  }
+  .back-btn{
+    background:none;
+    border:none;
+    color:var(--primary-dark);
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    padding:6px 8px;
+    margin:-6px -8px -6px -8px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .back-btn:hover, .back-btn:focus-visible{ background:var(--bg); }
+  .back-btn:focus-visible{ outline:3px solid var(--focus); outline-offset:2px; }
+
+  .progress-wrap{
+    padding:0 20px;
+    margin-top:2px;
+  }
+  .progress-track{
+    height:8px;
+    border-radius:99px;
+    background:var(--border);
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--accent);
+    border-radius:99px;
+    transition:width 0.35s ease;
+  }
+  .progress-label{
+    font-size:0.8rem;
+    color:var(--text-muted);
+    margin:6px 0 0;
+    font-weight:600;
+  }
+
+  main{
+    flex:1;
+    padding:24px 20px 40px;
+    display:flex;
+    flex-direction:column;
+  }
+  .screen{
+    animation:fadeSlide 0.32s ease;
+  }
+  @keyframes fadeSlide{
+    from{opacity:0; transform:translateY(8px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .screen{animation:none;}
+    .progress-fill{transition:none;}
+  }
+
+  h1{
+    font-family:var(--font-heading);
+    font-weight:800;
+    font-size:1.6rem;
+    line-height:1.25;
+    margin:0 0 12px;
+    color:var(--text);
+  }
+  h2{
+    font-family:var(--font-heading);
+    font-weight:700;
+    font-size:1.35rem;
+    margin:0 0 10px;
+    color:var(--text);
+  }
+  h3{ font-family:var(--font-heading); }
+  p{ margin:0 0 16px; color:var(--text-muted); }
+  .lead{ color:var(--text); font-size:1.05rem; }
+
+  .badge{
+    display:inline-block;
+    background:#e6f3f2;
+    color:var(--teal);
+    font-weight:700;
+    font-size:0.78rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:5px 12px;
+    border-radius:99px;
+    margin-bottom:14px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    padding:15px 20px;
+    border-radius:var(--radius);
+    font-size:1.05rem;
+    font-weight:800;
+    font-family:var(--font-body);
+    border:2px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform 0.06s ease, background 0.15s ease;
+    min-height:52px;
+  }
+  .btn:active{ transform:scale(0.98); }
+  .btn-primary{
+    background:var(--cta);
+    color:var(--cta-text);
+  }
+  .btn-primary:hover{ background:var(--orange-dark); }
+  .btn-secondary{
+    background:#fff;
+    color:var(--navy);
+    border-color:var(--border);
+  }
+  .btn-secondary:hover{ background:var(--bg); }
+  .btn-text{
+    background:none;
+    color:var(--teal);
+    border:none;
+    font-weight:700;
+    width:auto;
+    padding:10px 4px;
+  }
+  .btn:focus-visible, a:focus-visible, input:focus-visible, .option:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:2px;
+  }
+  .btn[disabled]{
+    opacity:0.5;
+    cursor:not-allowed;
+  }
+
+  .stack{ display:flex; flex-direction:column; gap:12px; margin-top:auto; padding-top:24px; }
+  .field-label{
+    display:block;
+    font-weight:700;
+    margin-bottom:8px;
+    font-size:1rem;
+  }
+  .helper{ font-size:0.9rem; color:var(--text-muted); margin-top:6px; }
+  input[type="text"]{
+    width:100%;
+    padding:14px 16px;
+    font-size:1.05rem;
+    border:2px solid var(--border);
+    border-radius:12px;
+    color:var(--text);
+    background:#fff;
+  }
+  input[type="text"]:focus{ border-color:var(--primary); outline:none; }
+
+  fieldset{ border:none; padding:0; margin:0; }
+  legend{ padding:0; }
+
+  .options{
+    list-style:none;
+    margin:18px 0 0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .option{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:16px;
+    border:2px solid var(--border);
+    border-radius:12px;
+    background:#fff;
+    cursor:pointer;
+    font-size:1.02rem;
+    color:var(--text);
+    transition:border-color 0.12s ease, background 0.12s ease;
+  }
+  .option:hover{ border-color:var(--primary); }
+  .option .check{
+    flex:0 0 22px;
+    width:22px; height:22px;
+    border-radius:50%;
+    border:2px solid var(--border);
+    margin-top:1px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+  }
+  .option .check::after{
+    content:"";
+    width:11px; height:11px;
+    border-radius:50%;
+    background:var(--accent);
+    transform:scale(0);
+    transition:transform 0.1s ease;
+  }
+  .option input[type="radio"]{
+    position:absolute;
+    opacity:0;
+    width:1px; height:1px;
+  }
+  .option:has(input:checked){
+    border-color:var(--accent);
+    background:#e6f3f2;
+    font-weight:600;
+  }
+  .option:has(input:checked) .check{ border-color:var(--accent); }
+  .option:has(input:checked) .check::after{ transform:scale(1); }
+  .option:has(input:focus-visible){ outline:3px solid var(--focus); outline-offset:2px; }
+
+  .note-card{
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px;
+    margin-bottom:16px;
+  }
+  .note-card p:last-child{ margin-bottom:0; }
+  .disclaimer{
+    font-size:0.86rem;
+    color:var(--text-muted);
+    border-left:4px solid var(--accent);
+    padding:10px 14px;
+    background:var(--bg);
+    border-radius:0 8px 8px 0;
+    margin-bottom:16px;
+  }
+
+  .results-header{ text-align:left; }
+  .result-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#e6f3f2;
+    color:var(--teal);
+    font-weight:700;
+    padding:8px 14px;
+    border-radius:99px;
+    margin:4px 8px 4px 0;
+    font-size:0.95rem;
+    border:1px solid #bfe7e1;
+  }
+  .result-pill .dot{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--accent);
+    flex:0 0 10px;
+  }
+  .section{
+    margin-bottom:20px;
+  }
+  .section h3{
+    font-size:1rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--primary-dark);
+    margin:0 0 8px;
+  }
+  .chip-list{
+    display:flex; flex-wrap:wrap; gap:8px;
+    list-style:none; padding:0; margin:0;
+  }
+  .chip{
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:99px;
+    padding:6px 12px;
+    font-size:0.92rem;
+  }
+  .chip-cluster{
+    background:#e6f3f2;
+    border:1px solid #bfe7e1;
+    color:var(--teal);
+    font-weight:600;
+  }
+  .chip-word{
+    background:#fdf0dc;
+    border:1px solid #f6d9a8;
+    color:#8a5800;
+    font-weight:700;
+  }
+  ul.plain{ margin:0; padding-left:1.2em; color:var(--text); }
+  ul.plain li{ margin-bottom:4px; }
+
+  .celebrate{
+    font-size:2.4rem;
+    text-align:center;
+    margin-bottom:8px;
+  }
+  .center{ text-align:center; }
+
+  .spinner{
+    width:46px; height:46px;
+    border:4px solid var(--border);
+    border-top-color:var(--accent);
+    border-radius:50%;
+    margin:40px auto 24px;
+    animation:spin 0.9s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){
+    .spinner{ animation:none; border-top-color:var(--border); }
+  }
+
+  .visually-hidden{
+    position:absolute !important;
+    width:1px;height:1px;
+    margin:-1px;padding:0;border:0;
+    clip:rect(0 0 0 0);
+    overflow:hidden;
+    white-space:nowrap;
+  }
+
+  a.link{ color:var(--primary-dark); font-weight:700; }
+
+  footer.appily-foot{
+    text-align:center;
+    font-size:0.78rem;
+    color:var(--text-muted);
+    padding:14px 20px;
+    border-top:1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+<div id="app" role="application" aria-label="Career Clues quiz">
+  <div class="topbar">
+    <button id="backBtn" class="back-btn" type="button" aria-label="Go back" hidden>&larr; Back</button>
+    <span class="brand" style="margin-left:12px;">Appily</span>
+    <span class="brand-sub" id="brandSub"></span>
+  </div>
+  <div class="progress-wrap" id="progressWrap" hidden>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <p class="progress-label" id="progressLabel"></p>
+  </div>
+  <main id="main" tabindex="-1">
+    <div id="screen" class="screen"></div>
+  </main>
+  <footer class="appily-foot">Career Clues by Appily &mdash; a starting point for career exploration</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- DATA ----------
+
+  var BUCKETS = {
+    helping: {
+      label: "Helping People",
+      summary: "You may enjoy work where you support, teach, guide, advocate for, or care for others.",
+      clusters: ["Health Science", "Education & Training", "Human Services", "Government & Public Administration"],
+      words: ["supportive","empathetic","patient","service-minded","collaborative","dependable","encouraging","people-focused"],
+      programs: ["Nursing","Education","Psychology","Social Work","Public Health","Human Services","Counseling","Health Sciences"],
+      careers: ["Education","Counseling","Public service","Community programming","Social services","Human resources","Public health","Emergency management","Recreation","Customer success","Interpreter/translator","Nonprofit operations","Community organizing"],
+      why: "Your answers suggest that people and positive impact matter to you. You may enjoy work that helps someone learn, heal, solve a problem, feel supported, or find the information and services they need.",
+      pdf: "downloads/helping-people-career-starter-snapshot.pdf"
+    },
+    building: {
+      label: "Building & Fixing",
+      summary: "You may enjoy hands-on work where you build, repair, improve, grow, design, or operate real things.",
+      clusters: ["Architecture & Construction", "Manufacturing", "Transportation, Distribution & Logistics", "Agriculture, Food & Natural Resources"],
+      words: ["practical","hands-on","observant","resourceful","steady","detail-oriented","persistent","problem-solving"],
+      programs: ["Engineering","Engineering Technology","Construction Management","Architecture","Industrial Design","Agriculture","Environmental Design","Supply Chain Management"],
+      careers: ["Welder","HVAC technician","Carpenter","Engineering technology","Construction","Manufacturing","Logistics","Agriculture","Facilities","Renewable energy","Product design","Culinary operations","Cosmetology","Veterinary technician","Sustainable design","Set design","Biomedical equipment technician","Dental laboratory technician","Quality control inspector"],
+      why: "Your answers suggest that you like practical challenges and visible results. You may enjoy work that uses tools, systems, materials, technology, design, food, land, equipment, or physical spaces to solve problems.",
+      pdf: "downloads/building-fixing-career-starter-snapshot.pdf"
+    },
+    data: {
+      label: "Solving with Data",
+      summary: "You may enjoy work where you use information, systems, logic, numbers, or technology to solve problems.",
+      clusters: ["Information Technology", "Business Management & Administration", "Finance", "Science, Technology, Engineering & Mathematics"],
+      words: ["analytical","logical","precise","organized","curious","methodical","tech-aware","pattern-focused"],
+      programs: ["Computer Science","Data Analytics","Finance","Accounting","Statistics","Information Systems","Business Analytics","Economics","Engineering"],
+      careers: ["Technology","Sports analytics","Finance","Cybersecurity","Engineering","Business intelligence","Logistics","Game analytics","Financial planning","Market research","Social media analytics","Systems improvement"],
+      why: "Your answers suggest that you like seeing how information connects. You may enjoy work where patterns, systems, data, budgets, or technology help people make better decisions.",
+      pdf: "downloads/solving-with-data-career-starter-snapshot.pdf"
+    },
+    creating: {
+      label: "Creating & Communicating",
+      summary: "You may enjoy work where you use ideas, words, visuals, stories, or design to connect with people.",
+      clusters: ["Arts, A/V Technology & Communications", "Marketing", "Hospitality & Tourism", "Education & Training"],
+      words: ["creative","expressive","imaginative","persuasive","observant","articulate","flexible","idea-driven"],
+      programs: ["Communications","Marketing","Graphic Design","Journalism","Media Studies","Public Relations","English","Digital Media","Advertising"],
+      careers: ["Media","Design","Marketing","Writing","Public relations","Content creation","Communications","Community outreach","UX content","Interpreter","Brand strategy","Museum work","Instructional design"],
+      why: "Your answers suggest that ideas and expression matter to you. You may enjoy work where you create messages, stories, visuals, lessons, or campaigns that help people understand, feel, learn, or take action.",
+      pdf: "downloads/creating-communicating-career-starter-snapshot.pdf"
+    },
+    leading: {
+      label: "Leading & Organizing",
+      summary: "You may enjoy work where you plan, organize, support a team, improve systems, or help a goal become real.",
+      clusters: ["Business Management & Administration", "Marketing", "Hospitality & Tourism", "Government & Public Administration"],
+      words: ["organized","motivated","responsible","strategic","persuasive","steady","goal-oriented","collaborative"],
+      programs: ["Business Administration","Management","Entrepreneurship","Hospitality Management","Marketing","Operations Management","Public Administration","Sports Management"],
+      careers: ["Business","Operations","Entrepreneurship","Event planning","Hospitality","Project management","Leadership","Sales","Advocacy","Project coordination","Nonprofit administration","Office management","Operations coordination","Executive support","Program coordination"],
+      why: "Your answers suggest that you like helping ideas become action. You may enjoy work where you organize details, set goals, improve systems, and keep projects moving. Leadership can happen out front or behind the scenes.",
+      pdf: "downloads/leading-organizing-career-starter-snapshot.pdf"
+    },
+    investigating: {
+      label: "Investigating & Researching",
+      summary: "You may enjoy work where you ask questions, gather facts, test ideas, and solve complex problems.",
+      clusters: ["Science, Technology, Engineering & Mathematics", "Health Science", "Agriculture, Food & Natural Resources", "Law, Public Safety, Corrections & Security"],
+      words: ["curious","thorough","careful","persistent","observant","questioning","research-minded","fact-focused"],
+      programs: ["Biology","Chemistry","Environmental Science","Forensic Science","Criminal Justice","Public Health","Engineering","Laboratory Science","Political Science"],
+      careers: ["Science","Environmental work","Healthcare","Law","Public safety","Investigation","Policy","Journalism","Quality assurance","Genealogy/history","Cybersecurity","Environmental fieldwork","Consumer insights analyst","Market research analyst","Brand strategist"],
+      why: "Your answers suggest that you like going beneath the surface. You may enjoy work where careful questions, research, facts, testing, and problem-solving lead to stronger answers.",
+      pdf: "downloads/investigating-researching-career-starter-snapshot.pdf"
+    }
+  };
+
+  var QUESTIONS = [
+    {
+      text: "When something needs to get done, what do you usually notice first?",
+      options: [
+        {label:"What questions still need answers", bucket:"investigating"},
+        {label:"How to explain or present the idea", bucket:"creating"},
+        {label:"Who needs help or support", bucket:"helping"},
+        {label:"What plan would keep things moving", bucket:"leading"},
+        {label:"What information or pattern could help", bucket:"data"},
+        {label:"What needs to be made, fixed, or improved", bucket:"building"}
+      ]
+    },
+    {
+      text: "Which everyday task sounds most satisfying?",
+      options: [
+        {label:"Sorting information so it makes sense", bucket:"data"},
+        {label:"Digging deeper to find out what is really going on", bucket:"investigating"},
+        {label:"Planning the steps so people know what to do", bucket:"leading"},
+        {label:"Helping someone understand a problem", bucket:"helping"},
+        {label:"Making something clearer, more interesting, or more creative", bucket:"creating"},
+        {label:"Repairing, cooking, building, growing, or organizing something physical", bucket:"building"}
+      ]
+    },
+    {
+      text: "When people aren’t sure what to do next, what would you most likely do?",
+      options: [
+        {label:"Help divide up tasks and next steps", bucket:"leading"},
+        {label:"Look at the facts, numbers, or details", bucket:"data"},
+        {label:"Rephrase the idea so people understand it", bucket:"creating"},
+        {label:"Ask more questions before deciding", bucket:"investigating"},
+        {label:"Try a hands-on solution", bucket:"building"},
+        {label:"Check how people are feeling and what they need", bucket:"helping"}
+      ]
+    },
+    {
+      text: "What kind of problem would you rather solve?",
+      options: [
+        {label:"A mystery, cause, or hidden issue that needs to be figured out", bucket:"investigating"},
+        {label:"A person needs guidance, care, or encouragement", bucket:"helping"},
+        {label:"A project needs a plan, timeline, or leader", bucket:"leading"},
+        {label:"A tool, system, space, or process is not working as it should", bucket:"building"},
+        {label:"A message is confusing or not getting attention", bucket:"creating"},
+        {label:"A decision needs better data or logic", bucket:"data"}
+      ]
+    },
+    {
+      text: "What do you enjoy learning about most?",
+      options: [
+        {label:"How teams, businesses, events, or organizations succeed", bucket:"leading"},
+        {label:"How science, laws, facts, or research explain the world", bucket:"investigating"},
+        {label:"How stories, design, media, or words shape what people think or feel", bucket:"creating"},
+        {label:"How people think, learn, heal, or grow", bucket:"helping"},
+        {label:"How tech, money, data, or systems help people decide", bucket:"data"},
+        {label:"How tools, spaces, machines, food, nature, or materials work", bucket:"building"}
+      ]
+    },
+    {
+      text: "What kind of result would make you feel proud?",
+      options: [
+        {label:"The answer was backed by strong evidence", bucket:"investigating"},
+        {label:"People connected with the message or idea", bucket:"creating"},
+        {label:"The finished thing worked well", bucket:"building"},
+        {label:"Someone felt supported or understood", bucket:"helping"},
+        {label:"The numbers, system, or logic made sense", bucket:"data"},
+        {label:"The plan came together and people stayed on track", bucket:"leading"}
+      ]
+    },
+    {
+      text: "When you are learning something new, what helps you stay interested?",
+      options: [
+        {label:"Asking why it works and looking for facts", bucket:"investigating"},
+        {label:"Seeing how the pieces fit into a bigger plan", bucket:"leading"},
+        {label:"Trying it, building it, testing it, or seeing it in action", bucket:"building"},
+        {label:"Knowing how it could help people", bucket:"helping"},
+        {label:"Talking, writing, drawing, or presenting it in your own way", bucket:"creating"},
+        {label:"Finding the pattern or system behind it", bucket:"data"}
+      ]
+    },
+    {
+      text: "What do you often find yourself doing, even outside of school?",
+      options: [
+        {label:"Organizing schedules, plans, people, events, or responsibilities", bucket:"leading"},
+        {label:"Creating posts, stories, images, music, videos, outfits, or presentations", bucket:"creating"},
+        {label:"Looking things up, fact-checking, experimenting, or asking detailed questions", bucket:"investigating"},
+        {label:"Comparing options, tracking details, budgeting, or using tech tools", bucket:"data"},
+        {label:"Listening, advising, helping, or caring for others", bucket:"helping"},
+        {label:"Fixing, making, arranging, cooking, growing, or improving things", bucket:"building"}
+      ]
+    },
+    {
+      text: "What kind of work sounds best?",
+      options: [
+        {label:"Work where I can focus on details and solve problems step by step", bucket:"data"},
+        {label:"Work where goals, deadlines, and teamwork matter", bucket:"leading"},
+        {label:"Work where relationships and trust matter", bucket:"helping"},
+        {label:"Work where I can take time to understand the facts", bucket:"investigating"},
+        {label:"Work where ideas can change and creativity is welcome", bucket:"creating"},
+        {label:"Work where I can see practical progress", bucket:"building"}
+      ]
+    },
+    {
+      text: "Which sentence sounds most like you?",
+      options: [
+        {label:"“I like helping a plan become real.”", bucket:"leading"},
+        {label:"“I want my work to make life better for people.”", bucket:"helping"},
+        {label:"“I like finding answers that are backed up by facts.”", bucket:"investigating"},
+        {label:"“I like when information helps solve a problem.”", bucket:"data"},
+        {label:"“I like work that has real things to make, fix, grow, or improve.”", bucket:"building"},
+        {label:"“I like turning ideas into something people can see, hear, or understand.”", bucket:"creating"}
+      ]
+    }
+  ];
+
+  // ---------- STATE ----------
+
+  var state = {
+    name: "",
+    answers: new Array(QUESTIONS.length).fill(null),
+    history: ["landing"],
+    current: "landing"
+  };
+
+  var FLOW = ["landing","name","reassurance"]
+    .concat(QUESTIONS.map(function(_,i){ return "q" + i; }))
+    .concat(["loading","results","detail","download","resume","counselor"]);
+
+  // ---------- HELPERS ----------
+
+  function el(html){
+    var t = document.createElement("template");
+    t.innerHTML = html.trim();
+    return t.content.firstElementChild;
+  }
+
+  // Sync in-app navigation with the browser's History API so the device's
+  // native back gesture / browser back button steps through quiz screens
+  // instead of leaving the page entirely.
+  var supportsHistory = !!(window.history && window.history.pushState);
+
+  function go(screenId, opts){
+    opts = opts || {};
+    if(opts.push !== false){
+      state.history.push(screenId);
+      if(supportsHistory){
+        history.pushState({ ccScreen: screenId, ccDepth: state.history.length }, "");
+      }
+    }
+    state.current = screenId;
+    render();
+  }
+
+  function popInternal(){
+    if(state.history.length > 1){
+      state.history.pop();
+      state.current = state.history[state.history.length - 1];
+      render(true);
+    }
+  }
+
+  function back(){
+    if(supportsHistory && state.history.length > 1){
+      history.back(); // triggers the popstate listener below, which calls popInternal()
+    } else {
+      popInternal();
+    }
+  }
+
+  function displayName(){
+    return state.name && state.name.trim() ? state.name.trim() : "Your";
+  }
+
+  function possessive(){
+    var n = state.name && state.name.trim();
+    return n ? (n + "’s") : "Your";
+  }
+
+  function computeResults(){
+    var scores = {};
+    Object.keys(BUCKETS).forEach(function(k){ scores[k] = 0; });
+    state.answers.forEach(function(ans, i){
+      if(ans !== null){
+        var bucket = QUESTIONS[i].options[ans].bucket;
+        scores[bucket] += 1;
+      }
+    });
+    var ranked = Object.keys(scores).map(function(k){
+      return {key:k, score:scores[k]};
+    }).sort(function(a,b){ return b.score - a.score; });
+
+    var top = ranked[0];
+    var second = ranked[1];
+    var showSecond = false;
+    var spread = false;
+
+    if(second.score > 0){
+      if(second.score === top.score){
+        showSecond = true;
+        spread = true;
+      } else if(top.score - second.score <= 2 || second.score >= top.score * 0.6){
+        showSecond = true;
+      }
+    }
+    // "evenly spread" framing: top two are close together
+    if(showSecond && (top.score - second.score) <= 1){
+      spread = true;
+    }
+
+    var results = [top];
+    if(showSecond) results.push(second);
+    return {results: results, spread: spread, ranked: ranked};
+  }
+
+  // ---------- RENDER ----------
+
+  var mainEl = document.getElementById("main");
+  var screenEl = document.getElementById("screen");
+  var backBtn = document.getElementById("backBtn");
+  var progressWrap = document.getElementById("progressWrap");
+  var progressFill = document.getElementById("progressFill");
+  var progressLabel = document.getElementById("progressLabel");
+  var brandSub = document.getElementById("brandSub");
+
+  backBtn.addEventListener("click", back);
+
+  // Handles the device/browser back gesture or back button.
+  window.addEventListener("popstate", function(){
+    popInternal();
+  });
+
+  function render(isBack){
+    var s = state.current;
+
+    // Back button visibility
+    backBtn.hidden = (s === "landing");
+
+    // Progress bar
+    var qMatch = /^q(\d+)$/.exec(s);
+    if(qMatch){
+      var idx = parseInt(qMatch[1], 10);
+      progressWrap.hidden = false;
+      progressFill.style.width = (((idx+1) / QUESTIONS.length) * 100) + "%";
+      progressLabel.textContent = "Question " + (idx+1) + " of " + QUESTIONS.length;
+      progressFill.parentElement.setAttribute("role","progressbar");
+      progressFill.parentElement.setAttribute("aria-valuemin","0");
+      progressFill.parentElement.setAttribute("aria-valuemax", String(QUESTIONS.length));
+      progressFill.parentElement.setAttribute("aria-valuenow", String(idx+1));
+      progressFill.parentElement.setAttribute("aria-label","Quiz progress");
+      brandSub.textContent = "Career Clues";
+    } else {
+      progressWrap.hidden = true;
+      brandSub.textContent = (s === "landing") ? "" : "Career Clues";
+    }
+
+    var node = SCREENS[s] ? SCREENS[s]() : el("<div><p>Screen not found.</p></div>");
+    screenEl.innerHTML = "";
+    screenEl.appendChild(node);
+
+    // Re-trigger animation
+    screenEl.classList.remove("screen");
+    void screenEl.offsetWidth;
+    screenEl.classList.add("screen");
+
+    // Move focus to heading for screen readers
+    var heading = screenEl.querySelector("h1, h2");
+    if(heading){
+      heading.setAttribute("tabindex","-1");
+      heading.focus({preventScroll:false});
+    } else {
+      mainEl.focus();
+    }
+    window.scrollTo(0,0);
+    reportHeight();
+  }
+
+  // ---------- Iframe auto-resize ----------
+  // Lets a parent page (e.g. an Appily page embedding this quiz in an
+  // <iframe>) resize the iframe to match this document's content height,
+  // avoiding internal scrollbars or empty space.
+  function reportHeight(){
+    if(window.parent === window) return; // not embedded
+    var height = document.documentElement.scrollHeight;
+    window.parent.postMessage({ type: "career-clues-resize", height: height }, "*");
+  }
+  window.addEventListener("load", reportHeight);
+  window.addEventListener("resize", reportHeight);
+  if(window.ResizeObserver){
+    new ResizeObserver(reportHeight).observe(document.documentElement);
+  }
+
+  // ---------- SCREENS ----------
+
+  var SCREENS = {};
+
+  SCREENS.landing = function(){
+    var node = el(
+      '<div>'+
+        '<span class="badge">Career Clues</span>'+
+        '<h1>Find career directions worth exploring.</h1>'+
+        '<p class="lead">Answer a few quick questions about what interests you, how you like to work, and what kinds of problems you enjoy solving.</p>'+
+        '<div class="disclaimer">This quiz is not a scientific aptitude assessment and does not predict your future career. Use your results as one source of information alongside your interests, experiences, goals, and conversations with people you trust.</div>'+
+        '<div class="stack">'+
+          '<button class="btn btn-primary" id="startBtn" type="button">Start the quiz</button>'+
+          '<p class="helper center" style="margin:0;">Takes about 5 minutes.</p>'+
+        '</div>'+
+      '</div>'
+    );
+    node.querySelector("#startBtn").addEventListener("click", function(){ go("name"); });
+    return node;
+  };
+
+  SCREENS.name = function(){
+    var node = el(
+      '<div>'+
+        '<h1>Want to personalize your result?</h1>'+
+        '<label class="field-label" for="firstName">First name</label>'+
+        '<input type="text" id="firstName" name="firstName" autocomplete="given-name" maxlength="30" value="'+ (state.name || "").replace(/"/g,"&quot;") +'">'+
+        '<p class="helper">Add your first name to personalize your results. You can also skip this.</p>'+
+        '<div class="stack">'+
+          '<button class="btn btn-primary" id="continueBtn" type="button">Continue</button>'+
+          '<button class="btn btn-secondary" id="skipBtn" type="button">Skip</button>'+
+        '</div>'+
+      '</div>'
+    );
+    var input = node.querySelector("#firstName");
+    node.querySelector("#continueBtn").addEventListener("click", function(){
+      state.name = input.value.trim();
+      go("reassurance");
+    });
+    node.querySelector("#skipBtn").addEventListener("click", function(){
+      state.name = "";
+      go("reassurance");
+    });
+    return node;
+  };
+
+  SCREENS.reassurance = function(){
+    var node = el(
+      '<div>'+
+        '<h1>No pressure. No lifetime commitment.</h1>'+
+        '<p class="lead">Your results are not a final career decision. They are a starting point you can use to explore classes, college programs, activities, career conversations, and resume ideas.</p>'+
+        '<div class="disclaimer">This quiz is a starting point, not a scientific aptitude assessment or a final career decision.</div>'+
+        '<div class="stack">'+
+          '<button class="btn btn-primary" id="gotItBtn" type="button">Got it</button>'+
+        '</div>'+
+      '</div>'
+    );
+    node.querySelector("#gotItBtn").addEventListener("click", function(){ go("q0"); });
+    return node;
+  };
+
+  QUESTIONS.forEach(function(q, i){
+    SCREENS["q"+i] = function(){
+      var selected = state.answers[i];
+      var optionsHtml = q.options.map(function(opt, j){
+        var checked = selected === j ? "checked" : "";
+        return '<li><label class="option">'+
+          '<input type="radio" name="q'+i+'" value="'+j+'" '+checked+'>'+
+          '<span class="check" aria-hidden="true"></span>'+
+          '<span>'+ opt.label +'</span>'+
+        '</label></li>';
+      }).join("");
+
+      var node = el(
+        '<div>'+
+          '<h2 id="qHeading">'+ q.text +'</h2>'+
+          '<form id="qForm">'+
+            '<fieldset>'+
+              '<legend class="visually-hidden">'+ q.text +'</legend>'+
+              '<ul class="options">'+ optionsHtml +'</ul>'+
+            '</fieldset>'+
+            '<div class="stack">'+
+              '<button class="btn btn-primary" type="submit" id="nextQBtn" '+ (selected===null?'disabled':'') +'>'+ (i === QUESTIONS.length-1 ? "See my results" : "Next") +'</button>'+
+            '</div>'+
+          '</form>'+
+        '</div>'
+      );
+
+      var form = node.querySelector("#qForm");
+      var nextBtn = node.querySelector("#nextQBtn");
+      var radios = node.querySelectorAll('input[type="radio"]');
+
+      radios.forEach(function(radio){
+        radio.addEventListener("change", function(){
+          state.answers[i] = parseInt(radio.value, 10);
+          nextBtn.disabled = false;
+        });
+      });
+
+      form.addEventListener("submit", function(e){
+        e.preventDefault();
+        if(state.answers[i] === null) return;
+        if(i === QUESTIONS.length - 1){
+          go("loading");
+        } else {
+          go("q" + (i+1));
+        }
+      });
+
+      return node;
+    };
+  });
+
+  SCREENS.loading = function(){
+    var node = el(
+      '<div>'+
+        '<div class="spinner" role="status" aria-live="polite">'+
+          '<span class="visually-hidden">Building your results&hellip;</span>'+
+        '</div>'+
+        '<h2 class="center">Finding your career clues&hellip;</h2>'+
+        '<p class="center">We&rsquo;re looking at your answers and matching them to career directions, career clusters, and majors you may want to explore.</p>'+
+      '</div>'
+    );
+    setTimeout(function(){
+      if(state.current === "loading"){
+        go("results");
+      }
+    }, 1100);
+    return node;
+  };
+
+  SCREENS.results = function(){
+    var r = computeResults();
+    state._results = r; // cache for detail screen
+    var names = r.results.map(function(x){ return BUCKETS[x.key].label; });
+
+    var headline;
+    var hasName = !!(state.name && state.name.trim());
+    if(names.length === 1){
+      headline = hasName
+        ? (state.name.trim() + ", your career direction to explore is " + names[0] + ".")
+        : "Your career direction to explore is " + names[0] + ".";
+    } else {
+      headline = hasName
+        ? (state.name.trim() + ", your top career directions to explore are " + names[0] + " and " + names[1] + ".")
+        : "Your top career directions to explore are " + names[0] + " and " + names[1] + ".";
+    }
+
+    var spreadNote = (names.length === 2 && r.spread)
+      ? '<p class="lead">You may have more than one direction worth exploring.</p>'
+      : "";
+
+    var clusterPills = [];
+    r.results.forEach(function(x){
+      BUCKETS[x.key].clusters.forEach(function(c){
+        if(clusterPills.indexOf(c) === -1) clusterPills.push(c);
+      });
+    });
+
+    var pillsHtml = r.results.map(function(x){
+      return '<span class="result-pill"><span class="dot" aria-hidden="true"></span>'+ BUCKETS[x.key].label +'</span>';
+    }).join("");
+
+    var clusterHtml = clusterPills.map(function(c){ return '<li class="chip chip-cluster">'+ c +'</li>'; }).join("");
+
+    var node = el(
+      '<div>'+
+        '<div class="celebrate" aria-hidden="true">✨</div>'+
+        '<h1>'+ headline +'</h1>'+
+        spreadNote +
+        '<div style="margin:8px 0 16px;">'+ pillsHtml +'</div>'+
+        '<p>'+ supportiveCopy() +'</p>'+
+        '<div class="section">'+
+          '<h3>Related career clusters</h3>'+
+          '<ul class="chip-list">'+ clusterHtml +'</ul>'+
+        '</div>'+
+        '<div class="stack">'+
+          '<button class="btn btn-primary" id="seeMoreBtn" type="button">See my full results</button>'+
+          '<button class="btn btn-text" id="restartBtn" type="button">Restart the quiz</button>'+
+        '</div>'+
+        '<p class="disclaimer" style="margin-top:16px;">Just a starting point, not a final decision &mdash; use it to spark ideas and conversations.</p>'+
+      '</div>'
+    );
+    node.querySelector("#seeMoreBtn").addEventListener("click", function(){ go("detail"); });
+    node.querySelector("#restartBtn").addEventListener("click", restartQuiz);
+    return node;
+  };
+
+  function supportiveCopy(){
+    return "This doesn’t mean you need to decide on a career today. Think of it as a starting point for exploring classes, college majors, activities, career ideas, and ways to build your resume.";
+  }
+
+  function restartQuiz(){
+    state.answers = new Array(QUESTIONS.length).fill(null);
+    state.history = ["landing"];
+    state.current = "landing";
+    if(supportsHistory){
+      history.replaceState({ ccScreen: "landing", ccDepth: 1 }, "");
+    }
+    // keep name so they don't have to retype, but reset to landing per flow
+    render();
+  }
+
+  SCREENS.detail = function(){
+    var r = state._results || computeResults();
+    var sections = r.results.map(function(x, idx){
+      var b = BUCKETS[x.key];
+      return ''+
+        '<div class="section">'+
+          '<h2 style="margin-bottom:6px;">'+ (r.results.length > 1 ? (idx===0 ? "Primary direction: " : "Second direction: ") : "") + b.label +'</h2>'+
+          '<p>'+ b.summary +'</p>'+
+          '<div class="section">'+
+            '<h3>Why this fits you</h3>'+
+            '<p>'+ b.why +'</p>'+
+          '</div>'+
+          '<div class="section">'+
+            '<h3>Words you can use to describe yourself</h3>'+
+            '<ul class="chip-list">'+ b.words.map(function(w){return '<li class="chip chip-word">'+w+'</li>';}).join("") +'</ul>'+
+          '</div>'+
+          '<div class="section">'+
+            '<h3>Majors to explore</h3>'+
+            '<ul class="plain">'+ b.programs.map(function(p){return '<li>'+p+'</li>';}).join("") +'</ul>'+
+          '</div>'+
+          '<div class="section">'+
+            '<h3>Career areas to explore</h3>'+
+            '<ul class="plain">'+ b.careers.map(function(c){return '<li>'+c+'</li>';}).join("") +'</ul>'+
+          '</div>'+
+          '<div class="section">'+
+            '<h3>Formal career cluster matches</h3>'+
+            '<ul class="chip-list">'+ b.clusters.map(function(c){return '<li class="chip chip-cluster">'+c+'</li>';}).join("") +'</ul>'+
+          '</div>'+
+        '</div>';
+    }).join('<hr style="border:none;border-top:1px solid var(--border);margin:24px 0;">');
+
+    var node = el(
+      '<div>'+
+        '<h1>Your full results</h1>'+
+        sections +
+        '<div class="disclaimer">This quiz is not a scientific aptitude assessment and does not predict your future career. Use your results as one source of information alongside your interests, experiences, goals, and conversations with people you trust.</div>'+
+        '<div class="stack">'+
+          '<button class="btn btn-primary" id="downloadNextBtn" type="button">Continue</button>'+
+        '</div>'+
+      '</div>'
+    );
+    node.querySelector("#downloadNextBtn").addEventListener("click", function(){ go("download"); });
+    return node;
+  };
+
+  SCREENS.download = function(){
+    var r = state._results || computeResults();
+    var multi = r.results.length > 1;
+
+    var cardsHtml = r.results.map(function(x, idx){
+      var b = BUCKETS[x.key];
+      var btnClass = "btn-primary";
+      return ''+
+        '<div class="note-card">'+
+          '<p><strong>'+ b.label +' snapshot</strong></p>'+
+          '<p style="margin-bottom:12px;">Includes career clusters, words that describe your strengths, majors to explore, and career ideas you may want to check out.</p>'+
+          '<a class="btn '+ btnClass +'" href="'+ b.pdf +'" download>Download '+ b.label +' snapshot</a>'+
+        '</div>';
+    }).join("");
+
+    var lead = multi
+      ? "Save a quick summary of each direction so you can look back, share them, or use them when you’re exploring what’s next."
+      : "Save a quick summary of your results so you can look back, share it, or use it when you’re exploring what’s next.";
+
+    var node = el(
+      '<div>'+
+        '<h1>Keep your career clues handy</h1>'+
+        '<p class="lead">'+ lead +'</p>'+
+        cardsHtml +
+        '<div class="stack">'+
+          '<p class="helper center">Bring '+ (multi ? "these" : "it") +' to a conversation with a counselor, teacher, parent, mentor, or someone else you trust.</p>'+
+          '<button class="btn btn-secondary" id="continueBtn" type="button">Continue</button>'+
+        '</div>'+
+      '</div>'
+    );
+    node.querySelector("#continueBtn").addEventListener("click", function(){ go("resume"); });
+    return node;
+  };
+
+  SCREENS.resume = function(){
+    var node = el(
+      '<div>'+
+        '<h1>Turn your results into resume language.</h1>'+
+        '<p class="lead">You now have words for your strengths, interests, and career direction. Use them to start or update your high school resume. No formal job or long club list required. School projects, family responsibilities, helping at home, hobbies, community involvement, informal work, and part-time jobs can all help you describe your skills.</p>'+
+        '<div class="stack">'+
+          '<a class="btn btn-primary" href="https://www.appily.com/guidance/articles/applying-to-college/high-school-resume-step-by-step" target="_blank" rel="noopener noreferrer" id="resumeLink">Build my high school resume</a>'+
+          '<button class="btn btn-secondary" id="continueBtn" type="button">Continue</button>'+
+        '</div>'+
+      '</div>'
+    );
+    node.querySelector("#continueBtn").addEventListener("click", function(){ go("counselor"); });
+    return node;
+  };
+
+  SCREENS.counselor = function(){
+    var node = el(
+      '<div>'+
+        '<h1>For counselors, teachers, and families</h1>'+
+        '<p class="lead">These results are designed to start a conversation. Encourage students to compare their results with classes, activities, college programs, volunteer experiences, part-time work, family responsibilities, hobbies, and career conversations. The goal is exploration, not a permanent decision.</p>'+
+        '<div class="disclaimer">This quiz is not a scientific aptitude assessment and does not predict your future career. Use your results as one source of information alongside your interests, experiences, goals, and conversations with people you trust.</div>'+
+        '<div class="stack">'+
+          '<button class="btn btn-primary" id="resultsAgainBtn" type="button">Back to my results</button>'+
+          '<button class="btn btn-text" id="restartBtn" type="button">Restart the quiz</button>'+
+        '</div>'+
+      '</div>'
+    );
+    node.querySelector("#resultsAgainBtn").addEventListener("click", function(){ go("results"); });
+    node.querySelector("#restartBtn").addEventListener("click", restartQuiz);
+    return node;
+  };
+
+  // ---------- INIT ----------
+  if(supportsHistory){
+    history.replaceState({ ccScreen: "landing", ccDepth: 1 }, "");
+  }
+  render();
+})();
+</script>
+</body>
+</html>
